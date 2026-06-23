@@ -1,0 +1,49 @@
+{
+  "name": "oido-gcalendar",
+  "version": "1.0.0",
+  "description": "List, create, update, and delete Google Calendar events via MCP, using your own Google OAuth connection.",
+  "runtime": "make build",
+  "mcpServers": {
+    "oido-gcalendar": {
+      "command": "${extensionPath}/oido-gcalendar-mcp",
+      "args": [],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_ACCESS_TOKEN": "${GOOGLE_ACCESS_TOKEN}",
+        "GOOGLE_OAUTH_EMAIL": "${GOOGLE_OAUTH_EMAIL}"
+      }
+    }
+  },
+  "contextFileName": "OIDO.md",
+  "excludeTools": [],
+  "settings": [
+    {
+      "name": "GOOGLE_CLIENT_ID",
+      "description": "Google OAuth client ID (from your Google Cloud project)",
+      "defaultValue": "",
+      "type": "string",
+      "sensitive": true
+    },
+    {
+      "name": "GOOGLE_CLIENT_SECRET",
+      "description": "Google OAuth client secret",
+      "defaultValue": "",
+      "type": "string",
+      "sensitive": true
+    },
+    {
+      "name": "GOOGLE_OAUTH",
+      "description": "Connect your Google account for Calendar access",
+      "type": "oauth2",
+      "provider": "google",
+      "scopes": [
+        "https://www.googleapis.com/auth/calendar",
+        "https://www.googleapis.com/auth/userinfo.email"
+      ],
+      "clientIdKey": "GOOGLE_CLIENT_ID",
+      "clientSecretKey": "GOOGLE_CLIENT_SECRET",
+      "tokenKey": "GOOGLE_ACCESS_TOKEN"
+    }
+  ]
+}
