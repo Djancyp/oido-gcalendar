@@ -36,7 +36,7 @@ func ListCalendars(ctx context.Context) ([]*calendar.CalendarListEntry, error) {
 	if err != nil {
 		return nil, err
 	}
-	res, err := svc.CalendarList.List().Do()
+	res, err := svc.CalendarList.List().Context(ctx).Do()
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func ListEvents(ctx context.Context, calendarID, timeMin, timeMax string, count 
 	if timeMax != "" {
 		call = call.TimeMax(timeMax)
 	}
-	res, err := call.Do()
+	res, err := call.Context(ctx).Do()
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func CreateEvent(ctx context.Context, calendarID, summary, description, location
 			ev.Attendees = append(ev.Attendees, &calendar.EventAttendee{Email: a})
 		}
 	}
-	return svc.Events.Insert(calOrPrimary(calendarID), ev).Do()
+	return svc.Events.Insert(calOrPrimary(calendarID), ev).Context(ctx).Do()
 }
 
 // UpdateEvent patches non-empty fields of an existing event.
@@ -114,7 +114,7 @@ func UpdateEvent(ctx context.Context, calendarID, eventID, summary, description,
 	if end != "" {
 		ev.End = &calendar.EventDateTime{DateTime: end}
 	}
-	return svc.Events.Patch(calOrPrimary(calendarID), eventID, ev).Do()
+	return svc.Events.Patch(calOrPrimary(calendarID), eventID, ev).Context(ctx).Do()
 }
 
 // DeleteEvent removes an event.
@@ -123,7 +123,7 @@ func DeleteEvent(ctx context.Context, calendarID, eventID string) error {
 	if err != nil {
 		return err
 	}
-	return svc.Events.Delete(calOrPrimary(calendarID), eventID).Do()
+	return svc.Events.Delete(calOrPrimary(calendarID), eventID).Context(ctx).Do()
 }
 
 // QuickAdd creates an event from natural-language text (e.g. "Lunch tomorrow 1pm").
@@ -132,5 +132,5 @@ func QuickAdd(ctx context.Context, calendarID, text string) (*calendar.Event, er
 	if err != nil {
 		return nil, err
 	}
-	return svc.Events.QuickAdd(calOrPrimary(calendarID), text).Do()
+	return svc.Events.QuickAdd(calOrPrimary(calendarID), text).Context(ctx).Do()
 }
