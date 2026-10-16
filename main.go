@@ -6,6 +6,6 @@ import "log"
 // oido-core as GOOGLE_ACCESS_TOKEN (refreshed at launch); this process just
 // consumes it.
 func main() {
-	log.Println("Starting Oido Google Calendar MCP Server v1.0.0...")
+	log.Println("Starting Oido Google Calendar MCP Server v1.1.0...")
 	RunMCPServer()
 }

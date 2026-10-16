@@ -1,6 +1,6 @@
 {
   "name": "oido-gcalendar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "List, create, update, and delete Google Calendar events via MCP, using your own Google OAuth connection.",
   "runtime": "make build",
   "mcpServers": {
